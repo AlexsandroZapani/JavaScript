@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Troca de Pneu do Carro</title>
+</head>
+
+<body>
+    <h1>Troca de Pneu do Carro</h1>
+    <div id="menu">
+        <p>Escolha uma opção:</p>
+        <button onclick="iniciarTrocaDePneu()">Iniciar Troca de Pneu</button>
+        <button onclick="encerrarPrograma()">Sair do Programa</button>
+    </div>
+
+    <div id="instrucoes" style="display:none;">
+        <h2>Iniciando a Troca de Pneu...</h2>
+        <ol>
+            <li>Estacione o carro em local seguro.</li>
+            <li>Pegue o macaco e a chave de roda no porta-malas.<button onclick="pegarFerramentas()">Ok</button></li>
+            <li>Posicione o macaco corretamente sob o carro.<button onclick="posicionarMacaco()">Ok</button></li>
+            <li>Eleve o carro usando o macaco.<button onclick="elevarCarro()">Ok</button></li>
+            <li>Remova a porca do pneu danificado.<button onclick="removerPorca()">Ok</button></li>
+            <li>Retire o pneu danificado.<button onclick="retirarPneuDanificado()">Ok</button></li>
+            <li>Coloque o pneu sobressalente.<button onclick="colocarPneuSobressalente()">Ok</button></li>
+            <li>Aperte as porcas manualmente.<button onclick="apertarPorcasManualmente()">Ok</button></li>
+            <li>Baixe o carro com o macaco.<button onclick="baixarCarro()">Ok</button></li>
+            <li>Aperte as porcas firmemente em uma sequência cruzada.<button onclick="apertarPorcasFirmemente()">Ok</button></li>
+            <li>Verifique se todas as porcas estão bem apertadas.<button onclick="verificarPorcas()">Ok</button></li>
+            <li>Guarde as ferramentas no porta-malas.<button onclick="guardarFerramentas()">Ok</button></li>
+            <li>Verifique a pressão do pneu substituído.<button onclick="verificarPressaoPneu()">Ok</button></li>
+        </ol>
+    </div>
+
+    <script>
+        function iniciarTrocaDePneu() {
+            document.getElementById("menu").style.display = "none";
+            document.getElementById("instrucoes").style.display = "block";
+        }
+
+        function encerrarPrograma() {
+            alert("Programa encerrado.");
+            window.close(); // Fecha a janela do navegador (pode não funcionar em todos os navegadores)
+        }
+
+        function pegarFerramentas() {
+            alert("Pegue o macaco e a chave de roda no porta-malas.");
+        }
+
+        function posicionarMacaco() {
+            alert("Posicione o macaco corretamente sob o carro.");
+        }
+
+        function elevarCarro() {
+            alert("Eleve o carro usando o macaco.");
+        }
+
+        function removerPorca() {
+            alert("Remova a porca do pneu danificado.");
+        }
+
+        function retirarPneuDanificado() {
+            alert("Retire o pneu danificado.");
+        }
+
+        function colocarPneuSobressalente() {
+            alert("Coloque o pneu sobressalente.");
+        }
+
+        function apertarPorcasManualmente() {
+            alert("Aperte as porcas manualmente.");
+        }
+
+        function baixarCarro() {
+            alert("Baixe o carro com o macaco.");
+        }
+
+        function apertarPorcasFirmemente() {
+            alert("Aperte as porcas firmemente em uma sequência cruzada.");
+        }
+
+        function verificarPorcas() {
+            alert("Verifique se todas as porcas estão bem apertadas.");
+        }
+
+        function guardarFerramentas() {
+            alert("Guarde as ferramentas no porta-malas.");
+        }
+
+        function verificarPressaoPneu() {
+            alert("Verifique a pressão do pneu substituído.");
+        }
+    </script>
+</body>
+
+</html>
+
+
+<!-- NOME DO PROGRAMA: Troca de Pneu do Carro -->
+
+<!-- OBJETIVO: Criar um programa interativo para fornecer instruções passo a passo sobre como trocar um pneu de carro de forma segura. -->
+
+<!-- FUNCIONALIDADES: -->
+
+<!-- Menu Principal: -->
+
+<!-- 
+Apresentar um menu com as opções a seguir:
+- Iniciar Troca de Pneu
+- Sair do Programa 
+-->
+
+<!-- 
+Instruções para Troca de Pneu:
+- Quando a opção "Iniciar Troca de Pneu" for selecionada:
+- Fornecer as seguintes instruções passo a passo:
+- Estacionar o carro em local seguro.
+- Pegar o macaco e a chave de roda no porta-malas.
+- Posicionar o macaco corretamente sob o carro.
+- Elevar o carro usando o macaco.
+- Remover a porca do pneu danificado.
+- Retirar o pneu danificado.
+- Colocar o pneu sobressalente.
+- Apertar as porcas manualmente.
+- Baixar o carro com o macaco.
+- Apertar as porcas firmemente em uma sequência cruzada.
+- Verificar se todas as porcas estão bem apertadas.
+- Guardar as ferramentas no porta-malas.
+- Verificar a pressão do pneu substituído. 
+-->
+
+<!-- 
+Sair do Programa:
+Ao selecionar essa opção, o programa será encerrado. 
+-->
+
+<!-- 
+Recursos Adicionais:
+Adicionar mensagens de segurança para alertar o usuário sobre os riscos potenciais durante a troca de pneu.
+Incluir imagens ou gráficos para demonstrar a correta posição do macaco e do carro.
+Oferecer informações de contato de serviços de assistência em estradas, caso o usuário tenha dificuldades.
+Possibilitar ao usuário a opção de retornar ao menu principal a qualquer momento durante o processo de troca de pneu. -->

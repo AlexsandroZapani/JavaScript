@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Programa de Entrada de Dados</title>
+</head>
+
+<body>
+    <div id="container">
+        <h2>Insira seu nome:</h2>
+        <input type="text" id="nomeInput">
+
+        <h2>Insira sua idade:</h2>
+        <input type="text" id="idadeInput">
+
+        <button onclick="exibirDados()">Processar Dados</button>
+
+        <div id="dadosUsuario"></div>
+    </div>
+
+    <script>
+        function exibirDados() {
+            var nome = document.getElementById("nomeInput").value;
+            var idade = document.getElementById("idadeInput").value;
+            dadosUsuario.innerHTML = "Nome: " + nome + "<br>Idade: " + idade + " anos";
+        }
+    </script>
+</body>
+
+</html>

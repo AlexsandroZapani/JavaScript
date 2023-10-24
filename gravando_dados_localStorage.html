@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lista de Tarefas</title>
+</head>
+
+<body>
+    <h1>Lista de Tarefas</h1>
+    <input id="tarefa" placeholder="Digite uma tarefa">
+    <button onclick="adicionarTarefa()">Adicionar Tarefa</button>
+    <ul id="lista-tarefas"></ul>
+
+    <script>
+        // Obtém a referência ao elemento <ul> onde as tarefas serão exibidas
+        const listaTarefas = document.getElementById("lista-tarefas");
+
+        // Função para adicionar uma tarefa
+        function adicionarTarefa() {
+            // Obtém o valor da entrada de texto
+            const tarefaInput = document.getElementById("tarefa");
+            const tarefaTexto = tarefaInput.value.trim();
+            // Ignora entradas vazias
+            if (tarefaTexto === "") {
+                alert("Por favor, insira uma tarefa válida.");
+                return;
+            }
+            // Obtém a lista de tarefas da Local Storage ou cria uma lista vazia
+            const tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+            // Adiciona a nova tarefa à lista
+            tarefas.push(tarefaTexto);
+            // Atualiza a Local Storage com a nova lista de tarefas
+            localStorage.setItem("tarefas", JSON.stringify(tarefas));
+            // Limpa o campo de entrada
+            tarefaInput.value = "";
+            // Atualiza a exibição da lista de tarefas
+            mostrarTarefas();
+        }
+
+        // Função para mostrar as tarefas na página
+        function mostrarTarefas() {
+            listaTarefas.innerHTML = ""; // Limpa a lista atual
+            // Obtém a lista de tarefas da Local Storage ou cria uma lista vazia
+            const tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+            // Itera sobre as tarefas e as exibe na lista
+            tarefas.forEach((tarefa, index) => {
+                const li = document.createElement("li"); // Cria um elemento <li>
+                li.textContent = tarefa; // Define o texto da tarefa
+                const removerBotao = document.createElement("button"); // Cria um botão de remoção
+                removerBotao.textContent = "X"; // Define o texto do botão
+                // Adiciona um ouvinte de evento para remover a tarefa quando o botão é clicado
+                removerBotao.addEventListener("click", () => {
+                    // Remove a tarefa da lista
+                    tarefas.splice(index, 1);
+                    // Atualiza a Local Storage com a nova lista de tarefas
+                    localStorage.setItem("tarefas", JSON.stringify(tarefas));
+                    // Atualiza a exibição da lista de tarefas
+                    mostrarTarefas();
+                });
+                li.appendChild(removerBotao); // Adiciona o botão à <li>
+                listaTarefas.appendChild(li); // Adiciona a <li> à lista de tarefas
+            });
+        }
+
+        // Inicializa a exibição das tarefas na página
+        mostrarTarefas();
+    </script>
+</body>
+
+</html>

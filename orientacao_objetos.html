@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Carro Orientado a Objetos</title>
+</head>
+
+<body>
+    <!-- Botões para interagir com o carro -->
+    <button id="ligarBtn">Ligar</button>
+    <button id="desligarBtn">Desligar</button>
+    <button id="moverBtn">Mover</button>
+    <button id="pararBtn">Parar</button>
+
+    <!-- Exibição do status do carro -->
+    <p id="status"></p>
+
+    <script>
+        // Definindo a classe Carro
+        class Carro {
+            constructor() {
+                this.ligado = false;
+                this.movendo = false;
+            }
+
+            ligar() {
+                if (!this.ligado) {
+                    this.ligado = true;
+                    return 'O carro está ligado.';
+                } else {
+                    return 'O carro já está ligado.';
+                }
+            }
+
+            desligar() {
+                if (this.ligado) {
+                    this.ligado = false;
+                    this.movendo = false;
+                    return 'O carro está desligado.';
+                } else {
+                    return 'O carro já está desligado.';
+                }
+            }
+
+            mover() {
+                if (this.ligado) {
+                    this.movendo = true;
+                    return 'O carro está em movimento.';
+                } else {
+                    return 'Ligue o carro antes de movê-lo.';
+                }
+            }
+
+            parar() {
+                if (this.movendo) {
+                    this.movendo = false;
+                    return 'O carro parou de se mover.';
+                } else {
+                    return 'O carro já está parado.';
+                }
+            }
+        }
+
+        // Criando uma instância do carro
+        const meuCarro = new Carro();
+
+        // Funções para interagir com o carro e atualizar o status na página
+        document.getElementById('ligarBtn').addEventListener('click', function () {
+            const mensagem = meuCarro.ligar();
+            document.getElementById('status').textContent = mensagem;
+        });
+
+        document.getElementById('desligarBtn').addEventListener('click', function () {
+            const mensagem = meuCarro.desligar();
+            document.getElementById('status').textContent = mensagem;
+        });
+
+        document.getElementById('moverBtn').addEventListener('click', function () {
+            const mensagem = meuCarro.mover();
+            document.getElementById('status').textContent = mensagem;
+        });
+
+        document.getElementById('pararBtn').addEventListener('click', function () {
+            const mensagem = meuCarro.parar();
+            document.getElementById('status').textContent = mensagem;
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Incluímos um arquivo CSS para estilizar o relógio. -->
+    <style>
+        body {
+            /* Centraliza o conteúdo vertical e horizontalmente na página. */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .clock {
+            /* Estiliza o relógio com uma grande fonte. */
+            font-size: 3em;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Criamos um contêiner com a classe "clock" para o relógio. -->
+    <div class="clock">
+        <!-- Dentro do contêiner, temos um elemento de div com o ID "time" para exibir a hora. -->
+        <div id="time"></div>
+    </div>
+    <!-- Incluímos um arquivo JavaScript para lidar com a lógica do relógio. -->
+    <script>
+        function updateClock() {
+            // Obtemos a hora atual.
+            const now = new Date();
+
+            // Extraímos as horas, minutos e segundos.
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+
+            // Criamos uma string de hora no formato "hh:mm:ss".
+            const timeString = `${hours}:${minutes}:${seconds}`;
+
+            // Atualizamos o conteúdo do elemento com o ID "time" com a hora atual.
+            document.getElementById('time').textContent = timeString;
+        }
+
+        // Atualizamos o relógio a cada segundo usando setInterval.
+        setInterval(updateClock, 1000);
+
+        // Atualizamos o relógio imediatamente ao carregar a página.
+        updateClock();
+    </script>
+</body>
+
+</html>
