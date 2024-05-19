@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tarefas</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <!-- Contem a tela com os campos de entrada de dados e botoes -->
+    <div>
+        <h2>Insira a tarefa:</h2>
+        <input type="text" id="taskInput">
+        <button onclick="taskAdd()">Adicionar</button>
+        </br>
+        </br>
+        <h2>Tarefas:</h2>
+        <div id="taskListDiv"></div>
+    </div>
+
+    <script>
+        //Array que simula a tabela tarefa do banco de dados
+        var tarefa = [];
+
+        //Exibe uma lista das funções em tela
+        function taskList() {
+            var lista = "";
+            for (let i = 0; i < tarefa.length; i++) {
+                lista += "Tarefa " + (i + 1) + ": " + tarefa[i].tarefa + " <button onclick=\"taskDelete(" + i + ")\">Remover</button><br>";
+            }
+            document.getElementById("taskListDiv").innerHTML = lista;
+        }
+
+        //Adicionando tarefa a array
+        function taskAdd() {
+            let task = document.getElementById("taskInput").value;
+            tarefa.push({ tarefa: task });
+            taskInput.value = '';
+            taskList();
+        }
+
+        //Remover tarefa a array
+        function taskDelete(i) {
+            // Usando splice para remover a tarefa
+            tarefa.splice(i, 1);
+            taskList();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <!-- Contem a tela com os campos de entrada de dados e botoes -->
+    <div>
+        <h2>Insira o código do produto:</h2>
+        <input type="text" id="produtoInput">
+        <button onclick="exibirDados()">Pesquisar</button>
+        <button onclick="listarProduto()">Relatório de Estoque</button>
+        <button onclick="addProduto()">Comprar</button>
+        <button onclick="listarProdutoCompra()">Lista de compras</button>
+        </br>
+        </br>
+        <h2>Produto:</h2>
+        <div id="dadosProduto"></div>
+    </div>
+
+    <script>
+        //simulando um banco de dados utilizando uma array
+        var produtos = [
+            { codigo: 1, descricao: 'Produto A', quantidade: 10 },
+            { codigo: 2, descricao: 'Produto B', quantidade: 5 },
+            { codigo: 3, descricao: 'Produto C', quantidade: 8 },
+        ];
+
+        //Função para listar os dados da array na div com id dadosProduto, listara de acordo com a posição enviada da array e não todos os itens de uma vez
+        function exibirDados() {
+            var codigo = document.getElementById("produtoInput").value;
+
+            dadosProduto.innerHTML =
+                "EAN: " + (produtos[codigo - 1].codigo)
+                + " - " +
+                "Descrição: " + (produtos[codigo - 1].descricao) +
+                " - " +
+                "QTD: " + (produtos[codigo - 1].quantidade);
+        };
+
+        //Lista todos os produtos da array de umam vez, usando um laço de repetição, para que mostre todos os itens da mesma
+        function listarProduto() {
+            var conteudo = "";
+
+            for (var i = 0; i < produtos.length; i++) {
+                conteudo += "Código: " + produtos[i].codigo + ", Descrição: " + produtos[i].descricao + ", Quantidade: " + produtos[i].quantidade + "<br>";
+            }
+
+            dadosProduto.innerHTML = conteudo;
+        }
+
+        var compras = [];
+
+        //Adicionando produtos a array
+        function addProduto() {
+            let cod = document.getElementById("produtoInput").value;
+            compras.push({ codigo: cod });
+            // produtoInput.value = '';
+        }
+
+        function listarProdutoCompra() {
+            var conteudo = "";
+            for (var i = 0; i < compras.length; i++) {
+                conteudo += "Código: " + compras[i].codigo + "<br>";
+            }
+            document.getElementById("dadosProduto").innerHTML = conteudo;
+        }
+
+    </script>
+</body>
+
+</html>

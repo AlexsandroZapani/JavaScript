@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <!-- Contem a tela com os campos de entrada de dados e botoes -->
+    <div>
+        <h2>Insira seu Usuario:</h2>
+        <input type="text" id="userInput">
+
+        <h2>Insira sua senha:</h2>
+        <input type="password" id="senhaInput">
+
+        <button onclick="validarLogin()">Login</button>
+    </div>
+
+    <script>
+        //Função para validação do usuario e senha
+        //Dados fixos, sendo comparados por meio de uma condição e se verdadeira redirecionando para pagina inicial
+        function validarLogin() { 
+            let usuarioFixo = "Alex"
+            let senhaFixa = "123"
+
+            let usuario = document.getElementById("userInput").value;
+            let senha = document.getElementById("senhaInput").value;
+
+            if ((usuario == usuarioFixo) && (senha == senhaFixa)) {
+                window.location.href = "file:///C:/dsv-git/Maravilha/Exemplo consulta estoque/consulta.html";
+            } else {
+                window.alert("Logou não");
+            }
+        };
+
+    </script>
+</body>
+
+</html>
+
+
+
+            
+            
+
+            
+        

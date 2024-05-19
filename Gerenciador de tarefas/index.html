@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <!-- Contem a tela com os campos de entrada de dados e botoes -->
+    <div>
+        <h2>Insira seu Usuario:</h2>
+        <input type="text" id="userInput">
+
+        <h2>Insira sua senha:</h2>
+        <input type="password" id="senhaInput">
+
+        <button onclick="validarLogin()">Login</button>
+    </div>
+
+    <script>
+        //Array que simula a tabela usuario do banco de dados
+        var user = [
+            { user: "user1", pass: "123" },
+            { user: "user2", pass: "123" },
+            { user: "user3", pass: "123" }
+        ];
+
+        //Função para validação do usuario e senha
+        //Dados fixos, sendo comparados por meio de uma condição e se verdadeira redirecionando para pagina inicial
+        function validarLogin() {
+            let userInput = document.getElementById("userInput").value;
+            let passInput = document.getElementById("senhaInput").value;
+
+            for (let index = 0; index < user.length; index++) {
+                let userArray = user[index].user;
+                let passArray = user[index].pass;
+
+                if ((userInput == userArray) && (passInput == passArray)) {
+                    window.location.href = "file:///C:/dsv-git/Maravilha/Exemplo consulta estoque/consulta.html";
+                } else {
+                    window.alert("Dados incorretos");
+                }
+                break; //é utilizado em muitas linguagens de programação para interromper a execução de um loop
+            }
+        };
+
+    </script>
+</body>
+
+</html>

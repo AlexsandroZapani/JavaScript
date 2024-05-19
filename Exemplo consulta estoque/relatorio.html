@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <!-- Contem a tela com os campos de entrada de dados e botoes -->
+    <div>
+        <h2>Relatorio dos produtos:</h2>
+        <button onclick="listarProduto()">Estoque</button>
+        </br>
+        </br>
+        <h2>Dados do produto:</h2>
+        <div id="dadosProduto"></div>
+    </div>
+
+    <script>
+        //simulando um banco de dados utilizando uma array
+        var produtos = [
+            { codigo: 1, descricao: 'Produto A', quantidade: 10 },
+            { codigo: 2, descricao: 'Produto B', quantidade: 5 },
+            { codigo: 3, descricao: 'Produto C', quantidade: 8 },
+        ];
+
+        //Lista todos os produtos da array de umam vez, usando um laço de repetição, para que mostre todos os itens da mesma
+        function listarProduto() {
+            var conteudo = "";
+
+            for (var i = 0; i < produtos.length; i++) {
+                conteudo += "Código: " + produtos[i].codigo + ", Descrição: " + produtos[i].descricao + ", Quantidade: " + produtos[i].quantidade + "<br>";
+            }
+
+            dadosProduto.innerHTML = conteudo;
+        }
+    </script>
+</body>
+
+</html>
