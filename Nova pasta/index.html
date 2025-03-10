@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndexedDB com Inputs</title>
+</head>
+<body>
+    <h1>Exemplo IndexedDB - Inserir Usuários e Produtos</h1>
+
+    <h2>Adicionar Usuário</h2>
+    <input type="text" id="inputUsuarioNome" placeholder="Nome do Usuário">
+    <input type="number" id="inputUsuarioIdade" placeholder="Idade do Usuário">
+    <button onclick="gravarUsuario()">Gravar Usuário</button>
+
+    <h2>Adicionar Produto</h2>
+    <input type="text" id="inputProdutoNome" placeholder="Nome do Produto">
+    <input type="number" id="inputProdutoPreco" placeholder="Preço do Produto">
+    <button onclick="gravarProduto()">Gravar Produto</button>
+
+    <h2>Usuários</h2>
+    <button onclick="lerUsuarios()">Ler Usuários</button>
+    <ul id="listaUsuarios"></ul>
+
+    <h2>Produtos</h2>
+    <button onclick="lerProdutos()">Ler Produtos</button>
+    <ul id="listaProdutos"></ul>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
