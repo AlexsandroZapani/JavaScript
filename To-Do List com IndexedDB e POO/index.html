@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Gerenciador de Tarefas</h1>
+
+    <form onsubmit="event.preventDefault(); adicionarTarefa();">
+        <input id="titulo" type="text" placeholder="Título da Tarefa" required>
+        <select id="prioridade">
+            <option value="Baixa">Baixa</option>
+            <option value="Média">Média</option>
+            <option value="Alta">Alta</option>
+        </select>
+        <button type="submit">Adicionar Tarefa</button>
+    </form>
+
+    <h2>Lista de Tarefas</h2>
+    <ul id="listaTarefas"></ul>
+
+    <script src="app.js"></script>
+
+    <script>
+        // Certifique-se de que o JavaScript será executado após o carregamento da página.
+        document.addEventListener('DOMContentLoaded', () => {
+            // Após a página carregar, garantir que o banco de dados esteja pronto
+            dbHelper.openDB().then(() => {
+                console.log("Banco de dados pronto!");
+                listarTarefas(); // Chama a função para listar as tarefas no início
+            }).catch(error => {
+                console.error("Erro ao abrir o banco de dados: ", error);
+            });
+        });
+    </script>
+
+</body>
+
+</html>
