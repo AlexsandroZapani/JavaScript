@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Alunos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        input,
+        button {
+            margin: 5px;
+            padding: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Cadastro de Alunos</h2>
+    <input type="text" id="nome" placeholder="Nome do aluno">
+    <input type="email" id="email" placeholder="Email">
+    <input type="text" id="conceitos" placeholder="Conceitos aprendidos">
+    <button onclick="adicionarAluno()">Adicionar Aluno</button>
+
+    <h3>Lista de Alunos</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Conceitos</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="listaAlunos"></tbody>
+    </table>
+
+    <script>
+        let db; // Variável para armazenar a referência ao banco de dados IndexedDB
+
+        // Abrir (ou criar) um banco de dados chamado "AlunosDB" com versão 1
+        const request = indexedDB.open("AlunosDB", 1);
+
+        // Evento chamado quando o banco de dados precisa ser atualizado (criação da estrutura)
+        request.onupgradeneeded = function (event) {
+            const db = event.target.result; // Obtém a referência ao banco de dados
+
+            // Se o object store "alunos" não existir, ele será criado
+            if (!db.objectStoreNames.contains("alunos")) {
+                db.createObjectStore("alunos", { keyPath: "id", autoIncrement: true });
+            }
+        };
+
+        // Evento chamado quando o banco de dados é aberto com sucesso
+        request.onsuccess = function (event) {
+            db = event.target.result; // Armazena a referência ao banco de dados
+            listarAlunos(); // Chama a função para listar os alunos já cadastrados
+        };
+
+        // Evento chamado se houver um erro ao abrir o banco de dados
+        request.onerror = function () {
+            console.error("Erro ao abrir o banco de dados.");
+        };
+
+        // Função para adicionar um aluno ao banco de dados
+        function adicionarAluno() {
+            // Se o banco de dados ainda não estiver carregado, exibe um alerta
+            if (!db) {
+                alert("Banco de dados não carregado ainda. Tente novamente.");
+                return;
+            }
+
+            // Obtém os valores dos campos de entrada e remove espaços extras
+            const nome = document.getElementById("nome").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const conceitos = document.getElementById("conceitos").value.trim();
+
+            // Verifica se os campos estão preenchidos
+            if (!nome || !email || !conceitos) {
+                alert("Preencha todos os campos!");
+                return;
+            }
+
+            // Cria uma transação no banco de dados em modo de escrita
+            const transaction = db.transaction(["alunos"], "readwrite");
+            const store = transaction.objectStore("alunos");
+
+            // Cria um objeto representando o aluno
+            const aluno = { nome, email, conceitos };
+
+            // Adiciona o aluno ao banco de dados
+            const request = store.add(aluno);
+
+            // Quando o aluno for adicionado com sucesso, limpa os campos e atualiza a lista
+            request.onsuccess = function () {
+                listarAlunos();
+                document.getElementById("nome").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("conceitos").value = "";
+            };
+
+            // Se houver erro ao adicionar o aluno, exibe um alerta
+            request.onerror = function () {
+                alert("Erro ao adicionar aluno.");
+            };
+        }
+
+        // Função para listar os alunos cadastrados
+        function listarAlunos() {
+            // Se o banco de dados ainda não estiver carregado, exibe um aviso e sai da função
+            if (!db) {
+                console.warn("Banco de dados ainda não carregado.");
+                return;
+            }
+
+            // Cria uma transação de leitura no banco de dados
+            const transaction = db.transaction(["alunos"], "readonly");
+            const store = transaction.objectStore("alunos");
+
+            // Solicita todos os registros do banco de dados
+            const request = store.getAll();
+
+            // Quando a solicitação for concluída, exibe os alunos na tabela
+            request.onsuccess = function () {
+                const lista = document.getElementById("listaAlunos");
+                lista.innerHTML = ""; // Limpa a lista antes de exibir os novos dados
+
+                // Percorre todos os alunos e adiciona suas informações na tabela
+                request.result.forEach(aluno => {
+                    lista.innerHTML += `
+                        <tr>
+                            <td>${aluno.nome}</td>
+                            <td>${aluno.email}</td>
+                            <td>${aluno.conceitos}</td>
+                            <td><button onclick="removerAluno(${JSON.stringify(aluno.id)})">Excluir</button></td>
+                        </tr>`;
+                });
+            };
+        }
+
+        // Função para remover um aluno pelo ID
+        function removerAluno(id) {
+            // Se o banco de dados ainda não estiver carregado, exibe um alerta
+            if (!db) {
+                alert("Banco de dados não está pronto.");
+                return;
+            }
+
+            // Cria uma transação em modo de escrita para excluir um aluno
+            const transaction = db.transaction(["alunos"], "readwrite");
+            const store = transaction.objectStore("alunos");
+
+            // Solicita a remoção do aluno pelo ID
+            const request = store.delete(id);
+
+            // Quando a remoção for concluída, atualiza a lista de alunos
+            request.onsuccess = function () {
+                listarAlunos();
+            };
+
+            // Se houver erro ao excluir o aluno, exibe um alerta
+            request.onerror = function () {
+                alert("Erro ao excluir aluno.");
+            };
+        }
+    </script>
+</body>
+
+</html>
