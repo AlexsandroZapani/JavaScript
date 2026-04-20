@@ -2,20 +2,20 @@ let db;
 
 // Função para abrir o banco de dados e criar as tabelas
 function abrirBanco() {
-    const request = indexedDB.open('loja', 1); // Banco de dados 'loja', versão 1
+    let request = indexedDB.open('loja', 1); // Banco de dados 'loja', versão 1
 
     request.onupgradeneeded = function(event) {
         db = event.target.result;
 
         // Criação da tabela de usuários
         if (!db.objectStoreNames.contains('users')) {
-            const userStore = db.createObjectStore('users', { keyPath: 'id', autoIncrement: true });
+            let userStore = db.createObjectStore('users', { keyPath: 'id', autoIncrement: true });
             userStore.createIndex('name', 'name', { unique: false });
         }
 
         // Criação da tabela de produtos
         if (!db.objectStoreNames.contains('products')) {
-            const productStore = db.createObjectStore('products', { keyPath: 'id', autoIncrement: true });
+            let productStore = db.createObjectStore('products', { keyPath: 'id', autoIncrement: true });
             productStore.createIndex('name', 'name', { unique: false });
         }
     };
@@ -31,18 +31,18 @@ function abrirBanco() {
 
 // Função para gravar um usuário no banco
 function gravarUsuario() {
-    const nome = document.getElementById('inputUsuarioNome').value;
-    const idade = parseInt(document.getElementById('inputUsuarioIdade').value);
+    let nome = document.getElementById('inputUsuarioNome').value;
+    let idade = parseInt(document.getElementById('inputUsuarioIdade').value);
 
     if (!nome || isNaN(idade)) {
         alert('Por favor, preencha todos os campos de usuário.');
         return;
     }
 
-    const transaction = db.transaction(['users'], 'readwrite');
-    const store = transaction.objectStore('users');
+    let transaction = db.transaction(['users'], 'readwrite');
+    let store = transaction.objectStore('users');
 
-    const usuario = { name: nome, idade: idade };
+    let usuario = { name: nome, idade: idade };
 
     store.add(usuario);
 
@@ -59,18 +59,18 @@ function gravarUsuario() {
 
 // Função para gravar um produto no banco
 function gravarProduto() {
-    const nome = document.getElementById('inputProdutoNome').value;
-    const preco = parseFloat(document.getElementById('inputProdutoPreco').value);
+    let nome = document.getElementById('inputProdutoNome').value;
+    let preco = parseFloat(document.getElementById('inputProdutoPreco').value);
 
     if (!nome || isNaN(preco)) {
         alert('Por favor, preencha todos os campos de produto.');
         return;
     }
 
-    const transaction = db.transaction(['products'], 'readwrite');
-    const store = transaction.objectStore('products');
+    let transaction = db.transaction(['products'], 'readwrite');
+    let store = transaction.objectStore('products');
 
-    const produto = { name: nome, preco: preco };
+    let produto = { name: nome, preco: preco };
 
     store.add(produto);
 
@@ -87,17 +87,17 @@ function gravarProduto() {
 
 // Função para ler todos os usuários do banco
 function lerUsuarios() {
-    const transaction = db.transaction(['users'], 'readonly');
-    const store = transaction.objectStore('users');
-    const request = store.getAll();
+    let transaction = db.transaction(['users'], 'readonly');
+    let store = transaction.objectStore('users');
+    let request = store.getAll();
 
     request.onsuccess = function(event) {
-        const usuarios = event.target.result;
-        const lista = document.getElementById('listaUsuarios');
+        let usuarios = event.target.result;
+        let lista = document.getElementById('listaUsuarios');
         lista.innerHTML = '';
 
         usuarios.forEach(usuario => {
-            const li = document.createElement('li');
+            let li = document.createElement('li');
             li.textContent = `${usuario.name} - Idade: ${usuario.idade}`;
             lista.appendChild(li);
         });
@@ -110,17 +110,17 @@ function lerUsuarios() {
 
 // Função para ler todos os produtos do banco
 function lerProdutos() {
-    const transaction = db.transaction(['products'], 'readonly');
-    const store = transaction.objectStore('products');
-    const request = store.getAll();
+    let transaction = db.transaction(['products'], 'readonly');
+    let store = transaction.objectStore('products');
+    let request = store.getAll();
 
     request.onsuccess = function(event) {
-        const produtos = event.target.result;
-        const lista = document.getElementById('listaProdutos');
+        let produtos = event.target.result;
+        let lista = document.getElementById('listaProdutos');
         lista.innerHTML = '';
 
         produtos.forEach(produto => {
-            const li = document.createElement('li');
+            let li = document.createElement('li');
             li.textContent = `${produto.name} - Preço: R$ ${produto.preco}`;
             lista.appendChild(li);
         });
@@ -135,12 +135,12 @@ function lerProdutos() {
 function verificarLogin(event) {
     event.preventDefault(); // Evita o envio do formulário
 
-    const usuario = document.getElementById('usuario').value;
-    const senha = document.getElementById('senha').value;
+    let usuario = document.getElementById('usuario').value;
+    let senha = document.getElementById('senha').value;
 
     // Exemplo de dados de login fixos (substitua com uma lógica de autenticação real)
-    const usuarioValido = 'admin';
-    const senhaValida = '1234';
+    let usuarioValido = 'admin';
+    let senhaValida = '1234';
 
     if (usuario === usuarioValido && senha === senhaValida) {
         localStorage.setItem('loggedIn', true); // Marca como logado
