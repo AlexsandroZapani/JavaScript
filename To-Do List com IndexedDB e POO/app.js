@@ -10,7 +10,7 @@ class IndexedDBHelper {
     // Essa função abre o banco de dados. Se for a primeira vez, ela cria a estrutura necessária.
     openDB() {
         return new Promise((resolve, reject) => {
-            const request = indexedDB.open(this.dbName, 1); // Abre o banco de dados, versão 1
+            let request = indexedDB.open(this.dbName, 1); // Abre o banco de dados, versão 1
 
             request.onupgradeneeded = (event) => {
                 let db = event.target.result; // Obtemos o banco de dados
@@ -34,9 +34,9 @@ class IndexedDBHelper {
     // Função para adicionar um item (tarefa) ao banco de dados.
     addItem(item) {
         return new Promise((resolve, reject) => {
-            const transaction = this.db.transaction(this.storeName, 'readwrite'); // Criamos uma transação para escrever no banco
-            const store = transaction.objectStore(this.storeName); // Pegamos a object store onde as tarefas estão guardadas
-            const request = store.add(item); // Tentamos adicionar o item à store
+            let transaction = this.db.transaction(this.storeName, 'readwrite'); // Criamos uma transação para escrever no banco
+            let store = transaction.objectStore(this.storeName); // Pegamos a object store onde as tarefas estão guardadas
+            let request = store.add(item); // Tentamos adicionar o item à store
 
             // Quando o item for adicionado com sucesso
             request.onsuccess = () => resolve(request.result); // A promessa é resolvida com o ID do item adicionado
@@ -48,9 +48,9 @@ class IndexedDBHelper {
     // Função para obter todos os itens armazenados no banco de dados
     getAllItems() {
         return new Promise((resolve, reject) => {
-            const transaction = this.db.transaction(this.storeName, 'readonly'); // Criamos uma transação para ler os dados
-            const store = transaction.objectStore(this.storeName); // Pegamos a object store
-            const request = store.getAll(); // Tentamos pegar todos os itens dessa store
+            let transaction = this.db.transaction(this.storeName, 'readonly'); // Criamos uma transação para ler os dados
+            let store = transaction.objectStore(this.storeName); // Pegamos a object store
+            let request = store.getAll(); // Tentamos pegar todos os itens dessa store
 
             // Quando conseguimos pegar os itens com sucesso
             request.onsuccess = () => resolve(request.result); // Resolvemos a promessa com todos os itens
@@ -62,9 +62,9 @@ class IndexedDBHelper {
     // Função para excluir um item do banco de dados pelo ID
     deleteItem(id) {
         return new Promise((resolve, reject) => {
-            const transaction = this.db.transaction(this.storeName, 'readwrite'); // Criamos uma transação para escrever no banco
-            const store = transaction.objectStore(this.storeName); // Pegamos a object store
-            const request = store.delete(id); // Tentamos excluir o item com o ID fornecido
+            let transaction = this.db.transaction(this.storeName, 'readwrite'); // Criamos uma transação para escrever no banco
+            let store = transaction.objectStore(this.storeName); // Pegamos a object store
+            let request = store.delete(id); // Tentamos excluir o item com o ID fornecido
 
             // Quando o item for excluído com sucesso
             request.onsuccess = () => resolve(); // A promessa é resolvida sem nenhum valor
@@ -85,7 +85,7 @@ class Tarefa {
 }
 
 // Inicializa o banco de dados e gerencia as tarefas
-const dbHelper = new IndexedDBHelper('TarefasDB', 'tarefas'); // Criamos um objeto para gerenciar o banco de dados
+let dbHelper = new IndexedDBHelper('TarefasDB', 'tarefas'); // Criamos um objeto para gerenciar o banco de dados
 
 // Abrir o banco de dados quando o script for executado
 dbHelper.openDB().then(() => {
@@ -94,10 +94,10 @@ dbHelper.openDB().then(() => {
 
 // Função para adicionar uma tarefa ao banco de dados
 function adicionarTarefa() {
-    const titulo = document.getElementById('titulo').value; // Pega o título da tarefa do input no HTML
-    const prioridade = document.getElementById('prioridade').value; // Pega a prioridade da tarefa do input no HTML
+    let titulo = document.getElementById('titulo').value; // Pega o título da tarefa do input no HTML
+    let prioridade = document.getElementById('prioridade').value; // Pega a prioridade da tarefa do input no HTML
     
-    const tarefa = new Tarefa(titulo, prioridade); // Criamos um objeto de tarefa com os dados fornecidos
+    let tarefa = new Tarefa(titulo, prioridade); // Criamos um objeto de tarefa com os dados fornecidos
     dbHelper.addItem(tarefa).then(() => { // Adicionamos a tarefa ao banco de dados
         console.log("Tarefa adicionada!"); // Mensagem no console
         listarTarefas(); // Atualiza a lista de tarefas na página
@@ -107,14 +107,14 @@ function adicionarTarefa() {
 // Função para listar todas as tarefas armazenadas no banco de dados
 function listarTarefas() {
     dbHelper.getAllItems().then(tarefas => {
-        const lista = document.getElementById('listaTarefas'); // Pegamos o elemento da lista no HTML
+        let lista = document.getElementById('listaTarefas'); // Pegamos o elemento da lista no HTML
         lista.innerHTML = ''; // Limpa a lista para não repetir itens
         tarefas.forEach(tarefa => { // Para cada tarefa no banco de dados
-            const li = document.createElement('li'); // Criamos um item de lista
+            let li = document.createElement('li'); // Criamos um item de lista
             li.textContent = `${tarefa.titulo} - Prioridade: ${tarefa.prioridade}`; // Definimos o conteúdo do item
 
             // Criamos um botão para excluir a tarefa
-            const btnExcluir = document.createElement('button');
+            let btnExcluir = document.createElement('button');
             btnExcluir.textContent = "Excluir"; // Texto do botão
             // Quando o botão for clicado, ele exclui a tarefa
             btnExcluir.onclick = () => excluirTarefa(tarefa.id);
